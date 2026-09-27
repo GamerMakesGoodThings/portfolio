@@ -1,0 +1,458 @@
+@import "tailwindcss";
+
+/* ============================================
+   DESIGN TOKENS — Gallery Play Inspired
+   Dark, Cinematic, Editorial, Bold
+   ============================================ */
+
+@theme {
+  /* Typography */
+  --font-heading: "Space Grotesk", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* Background surfaces — deep luxury obsidian dark */
+  --color-bg-deep: #050505;
+  --color-bg-primary: #070709;
+  --color-bg-secondary: #0c0c0f;
+  --color-bg-elevated: #111115;
+  --color-bg-surface: #16161b;
+  --color-bg-surface-hover: #1f1f26;
+
+  /* Accent colors — Gallery Play style vibrant accents */
+  --color-accent-blue: #213ded;
+  --color-accent-cyan: #00acd7;
+  --color-accent-green: #00b181;
+  --color-accent-yellow: #e6c82a;
+  --color-accent-orange: #ff3700;
+  --color-accent: #FFFFFF;
+  --color-accent-muted: #888888;
+
+  /* Text hierarchy */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #AAAAAA;
+  --color-text-tertiary: #777777;
+  --color-text-muted: #555555;
+
+  /* Borders */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-border-accent: rgba(255, 255, 255, 0.12);
+
+  /* Radius — softer, modern */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Animations */
+  --animate-blink: blink 1s step-end infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-gradient-travel: gradient-travel 8s ease infinite;
+  --animate-shine-sweep: shine-sweep 4s linear infinite;
+  --animate-aurora-drift-1: aurora-drift-1 14s ease-in-out infinite;
+  --animate-aurora-drift-2: aurora-drift-2 18s ease-in-out infinite;
+  --animate-aurora-drift-3: aurora-drift-3 12s ease-in-out infinite;
+  --animate-float-particle: float-particle 14s ease-in-out infinite;
+  --animate-marquee: marquee 30s linear infinite;
+}
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   ============================================ */
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes gradient-travel {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shine-sweep {
+  0% { background-position: 250% 0; }
+  100% { background-position: -150% 0; }
+}
+
+@keyframes aurora-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(45px, -30px) scale(1.08); }
+}
+
+@keyframes aurora-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-35px, 35px) scale(1.12); }
+}
+
+@keyframes aurora-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(25px, 20px) scale(0.95); }
+}
+
+@keyframes float-particle {
+  0% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-18px) translateX(8px); }
+  50% { transform: translateY(-36px) translateX(-6px); }
+  75% { transform: translateY(-54px) translateX(5px); }
+  100% { transform: translateY(-70px) translateX(0); opacity: 0; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* ReactBits utility classes */
+.animate-gradient-travel {
+  animation: gradient-travel 8s ease infinite;
+}
+
+.animate-shine-sweep {
+  animation: shine-sweep 4s linear infinite;
+}
+
+.animate-aurora-drift-1 {
+  animation: aurora-drift-1 14s ease-in-out infinite;
+}
+
+.animate-aurora-drift-2 {
+  animation: aurora-drift-2 18s ease-in-out infinite;
+}
+
+.animate-aurora-drift-3 {
+  animation: aurora-drift-3 12s ease-in-out infinite;
+}
+
+.animate-float-particle {
+  animation: float-particle 14s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: #070709;
+  background-image: 
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(33, 61, 237, 0.08), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 95% 35%, rgba(0, 172, 215, 0.05), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 5% 75%, rgba(0, 177, 129, 0.04), transparent 60%);
+  background-attachment: fixed;
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Subtle dot grid pattern */
+.bg-grid-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Glass card styling */
+.gp-card {
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gp-card:hover {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+}
+
+/* ============================================
+   HIDDEN SCROLLBAR — Gallery Play style
+   ============================================ */
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* ============================================
+   SELECTION STYLES
+   ============================================ */
+
+::selection {
+  background: rgba(33, 61, 237, 0.3);
+  color: #ffffff;
+}
+
+/* ============================================
+   FOCUS STYLES
+   ============================================ */
+
+:focus-visible {
+  outline: 1.5px solid rgba(255, 255, 255, 0.3);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   INTERACTIVE ELEMENT CURSOR
+   ============================================ */
+
+a, button, [role="button"], input[type="submit"],
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* ============================================
+   GLASSMORPHIC BUTTONS — .gp-button
+   ============================================ */
+
+.gp-button {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gp-button:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.gp-button-solid {
+  background: #ffffff;
+  color: #1E1E1E;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gp-button-solid:hover {
+  background: #e5e5e5;
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   PROJECT CARDS — Gallery Play style
+   ============================================ */
+
+.project-card {
+  position: relative;
+  aspect-ratio: 1/1;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.project-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  cursor: pointer;
+}
+
+.project-card:hover .project-card-overlay {
+  opacity: 1;
+}
+
+/* ============================================
+   SECTION SPACING — Large editorial sections
+   ============================================ */
+
+.section-spacing {
+  padding: 120px 0;
+}
+
+@media (max-width: 768px) {
+  .section-spacing {
+    padding: 80px 0;
+  }
+}
+
+/* ============================================
+   MARQUEE — Logo carousel
+   ============================================ */
+
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: inline-flex;
+  gap: 60px;
+  align-items: center;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   BIG TYPOGRAPHY — Editorial style
+   ============================================ */
+
+.text-editorial {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.text-statement {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: #AAAAAA;
+}
+
+/* ============================================
+   SERVICE ICON DOTS
+   ============================================ */
+
+.service-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   HEATMAP OVERLAY
+   ============================================ */
+
+#heatmap-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999999;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ============================================
+   LENIS SMOOTH SCROLL
+   ============================================ */
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ============================================
+   REDUCED MOTION — Accessibility
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
